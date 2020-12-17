@@ -422,6 +422,7 @@
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
     - syslog_ng_installed is defined and syslog_ng_installed
+    - centos7cis_syslog_ng
   tags:
     - level1
     - patch
