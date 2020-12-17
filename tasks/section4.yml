@@ -1,96 +1,96 @@
-- name: "NOTSCORED | 4.1.1.1 | PATCH | Ensure audit log storage size is configured"
+- name: 'NOTSCORED | 4.1.1.1 | PATCH | Ensure audit log storage size is configured'
   lineinfile:
-      dest: /etc/audit/auditd.conf
-      regexp: "^max_log_file"
-      line: "max_log_file = 10"
-      state: present
+    dest: /etc/audit/auditd.conf
+    regexp: '^max_log_file'
+    line: 'max_log_file = 10'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.1.1
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.1.1
 
-- name: "SCORED | 4.1.1.2 | PATCH | Ensure system is disabled when audit logs are full"
+- name: 'SCORED | 4.1.1.2 | PATCH | Ensure system is disabled when audit logs are full'
   lineinfile:
-      dest: /etc/audit/auditd.conf
-      regexp: "^admin_space_left_action"
-      line: "admin_space_left_action = halt"
-      state: present
+    dest: /etc/audit/auditd.conf
+    regexp: '^admin_space_left_action'
+    line: 'admin_space_left_action = halt'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.1.2
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.1.2
 
-- name: "SCORED | 4.1.1.3 | PATCH | Ensure audit logs are not automatically deleted"
+- name: 'SCORED | 4.1.1.3 | PATCH | Ensure audit logs are not automatically deleted'
   lineinfile:
-      dest: /etc/audit/auditd.conf
-      regexp: "^max_log_file_action"
-      line: "max_log_file_action = keep_logs"
-      state: present
+    dest: /etc/audit/auditd.conf
+    regexp: '^max_log_file_action'
+    line: 'max_log_file_action = keep_logs'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.1.3
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.1.3
 
-- name: "SCORED | 4.1.2 | PATCH | Ensure auditd service is enabled"
+- name: 'SCORED | 4.1.2 | PATCH | Ensure auditd service is enabled'
   service:
-      name: auditd
-      state: started
-      enabled: yes
+    name: auditd
+    state: started
+    enabled: yes
   when:
     - centos7cis_level2 is defined and centos7cis_level2
     - centos7cis_enable_auditd is defined and centos7cis_enable_auditd
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.2
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.2
 
-- name: "SCORED | 4.1.3 | PATCH | Ensure auditing for processes that start prior to auditd is enabled"
+- name: 'SCORED | 4.1.3 | PATCH | Ensure auditing for processes that start prior to auditd is enabled'
   replace:
-      dest: /etc/default/grub
-      regexp: '(^GRUB_CMDLINE_LINUX\s*\=\s*)(?:")(.+)(?<!audit=1)(?:")'
-      replace: '\1"\2 audit=1"'
-      follow: yes
+    dest: /etc/default/grub
+    regexp: '(^GRUB_CMDLINE_LINUX\s*\=\s*)(?:")(.+)(?<!audit=1)(?:")'
+    replace: '\1"\2 audit=1"'
+    follow: yes
   ignore_errors: yes
   notify: generate new grub config
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.3
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.3
 
-- name: "SCORED | 4.1.4 | PATCH | Ensure events that modify date and time information are collected"
+- name: 'SCORED | 4.1.4 | PATCH | Ensure events that modify date and time information are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.4
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.4
 
-- name: "SCORED | 4.1.5 | PATCH | Ensure events that modify user/group information are collected"
+- name: 'SCORED | 4.1.5 | PATCH | Ensure events that modify user/group information are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.5
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.5
 
 - name: "SCORED | 4.1.6 | PATCH | Ensure events that modify the system's network environment are collected"
   command: /bin/true
@@ -98,10 +98,10 @@
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.6
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.6
 
 - name: "SCORED | 4.1.7 | PATCH | Ensure events that modify the system's Mandatory Access Controls are collected"
   command: /bin/true
@@ -109,189 +109,189 @@
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.7
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.7
 
-- name: "SCORED | 4.1.8 | PATCH | Ensure login and logout events are collected"
+- name: 'SCORED | 4.1.8 | PATCH | Ensure login and logout events are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.8
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.8
 
-- name: "SCORED | 4.1.9 | PATCH | Ensure session initiation information is collected"
+- name: 'SCORED | 4.1.9 | PATCH | Ensure session initiation information is collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.9
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.9
 
-- name: "SCORED | 4.1.10 | PATCH | Ensure discretionary access control permission modification events are collected"
+- name: 'SCORED | 4.1.10 | PATCH | Ensure discretionary access control permission modification events are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.10
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.10
 
-- name: "SCORED | 4.1.11 | PATCH | Ensure unsuccessful unauthorized file access attempts are collected"
+- name: 'SCORED | 4.1.11 | PATCH | Ensure unsuccessful unauthorized file access attempts are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.11
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.11
 
-- name: "SCORED | 4.1.12 | PATCH | Ensure use of privileged commands is collected"
+- name: 'SCORED | 4.1.12 | PATCH | Ensure use of privileged commands is collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.12
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.12
 
-- name: "SCORED | 4.1.13 | PATCH | Ensure successful file system mounts are collected"
+- name: 'SCORED | 4.1.13 | PATCH | Ensure successful file system mounts are collected'
   lineinfile:
-      dest: /etc/audit/rules.d/audit.rules
-      line: "-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
-      state: present
+    dest: /etc/audit/rules.d/audit.rules
+    line: '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.13
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.13
 
-- name: "SCORED | 4.1.13 | PATCH | Ensure successful file system mounts are collected"
+- name: 'SCORED | 4.1.13 | PATCH | Ensure successful file system mounts are collected'
   lineinfile:
-      dest: /etc/audit/audit.rules
-      line: "-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
-      state: present
+    dest: /etc/audit/audit.rules
+    line: '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.13
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.13
 
-- name: "SCORED | 4.1.13 | PATCH | Ensure successful file system mounts are collected"
+- name: 'SCORED | 4.1.13 | PATCH | Ensure successful file system mounts are collected'
   lineinfile:
-      dest: /etc/audit/rules.d/audit.rules
-      line: "-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
-      state: present
+    dest: /etc/audit/rules.d/audit.rules
+    line: '-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.13
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.13
 
-- name: "SCORED | 4.1.14 | PATCH | Ensure file deletion events by users are collected"
+- name: 'SCORED | 4.1.14 | PATCH | Ensure file deletion events by users are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.14
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.14
 
-- name: "SCORED | 4.1.15 | PATCH | Ensure changes to system administration scope (sudoers) is collected"
+- name: 'SCORED | 4.1.15 | PATCH | Ensure changes to system administration scope (sudoers) is collected'
   lineinfile:
-      dest: /etc/audit/rules.d/audit.rules
-      line: "-w /etc/sudoers -p wa -k scope"
-      state: present
+    dest: /etc/audit/rules.d/audit.rules
+    line: '-w /etc/sudoers -p wa -k scope'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.15
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.15
 
-- name: "SCORED | 4.1.15 | PATCH | Ensure changes to system administration scope (sudoers) is collected"
+- name: 'SCORED | 4.1.15 | PATCH | Ensure changes to system administration scope (sudoers) is collected'
   lineinfile:
-      dest: /etc/audit/audit.rules
-      line: "-w /etc/sudoers -p wa -k scope"
-      state: present
+    dest: /etc/audit/audit.rules
+    line: '-w /etc/sudoers -p wa -k scope'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.15
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.15
 
-- name: "SCORED | 4.1.15 | PATCH | Ensure changes to system administration scope (sudoers) is collected"
+- name: 'SCORED | 4.1.15 | PATCH | Ensure changes to system administration scope (sudoers) is collected'
   lineinfile:
-      dest: /etc/audit/rules.d/audit.rules
-      line: "-w /etc/sudoers.d -p wa -k scope"
-      state: present
+    dest: /etc/audit/rules.d/audit.rules
+    line: '-w /etc/sudoers.d -p wa -k scope'
+    state: present
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.15
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.15
 
-- name: "SCORED | 4.1.16 | PATCH | Ensure system administrator actions (sudolog) are collected"
+- name: 'SCORED | 4.1.16 | PATCH | Ensure system administrator actions (sudolog) are collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.16
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.16
 
-- name: "SCORED | 4.1.17 | PATCH | Ensure kernel module loading and unloading is collected"
+- name: 'SCORED | 4.1.17 | PATCH | Ensure kernel module loading and unloading is collected'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.17
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.17
 
-- name: "SCORED | 4.1.18 | PATCH | Ensure the audit configuration is immutable"
+- name: 'SCORED | 4.1.18 | PATCH | Ensure the audit configuration is immutable'
   command: /bin/true
   changed_when: no
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - auditd
-      - patch
-      - rule_4.1.18
+    - level2
+    - auditd
+    - patch
+    - rule_4.1.18
 
-- name: "SCORED | 4.2.1.1 | PATCH | Ensure rsyslog Service is enabled"
+- name: 'SCORED | 4.2.1.1 | PATCH | Ensure rsyslog Service is enabled'
   systemd:
     name: rsyslogd
     enabled: yes
@@ -300,11 +300,11 @@
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level2
-      - patch
-      - rule_4.2.1.1
+    - level2
+    - patch
+    - rule_4.2.1.1
 
-- name: "NOTSCORED | 4.2.1.2 | PATCH | Ensure logging is configured"
+- name: 'NOTSCORED | 4.2.1.2 | PATCH | Ensure logging is configured'
   command: /bin/true
   changed_when: no
   when:
@@ -313,45 +313,45 @@
     - centos7cis_rsyslog
     - centos7cis_log_server
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.2
+    - level1
+    - patch
+    - rule_4.2.1.2
 
-- name: "SCORED | 4.2.1.3 | PATCH | Ensure rsyslog default file permissions configured"
+- name: 'SCORED | 4.2.1.3 | PATCH | Ensure rsyslog default file permissions configured'
   lineinfile:
-      dest: /etc/rsyslog.conf
-      regexp: '^\$FileCreateMode'
-      line: '$FileCreateMode 0640'
-      create: yes
+    dest: /etc/rsyslog.conf
+    regexp: '^\$FileCreateMode'
+    line: '$FileCreateMode 0640'
+    create: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.3
+    - level1
+    - patch
+    - rule_4.2.1.3
 
-- name: "SCORED | 4.2.1.4 | PATCH | Ensure rsyslog is configured to send logs to a remote log host"
+- name: 'SCORED | 4.2.1.4 | PATCH | Ensure rsyslog is configured to send logs to a remote log host'
   lineinfile:
     dest: /etc/rsyslog.conf
     regexp: "^\\*\\.\\*"
-    line: "*.* @@{{ centos7cis_rsyslog_loghost_address }}"
+    line: '*.* @@{{ centos7cis_rsyslog_loghost_address }}'
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.4
+    - level1
+    - patch
+    - rule_4.2.1.4
 
-- name: "NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | NON-LOG SERVER"
+- name: 'NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | NON-LOG SERVER'
   lineinfile:
-      dest: /etc/rsyslog.conf
-      regexp: '^\$ModLoad imtcp'
-      line: '# $ModLoad imtcp'
-      create: yes
+    dest: /etc/rsyslog.conf
+    regexp: '^\$ModLoad imtcp'
+    line: '# $ModLoad imtcp'
+    create: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog is defined
@@ -359,16 +359,16 @@
     - centos7cis_rsyslog
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.5
+    - level1
+    - patch
+    - rule_4.2.1.5
 
-- name: "NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | NON-LOG SERVER"
+- name: 'NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | NON-LOG SERVER'
   lineinfile:
-      dest: /etc/rsyslog.conf
-      regexp: '^\$InputTCPServerRun 514'
-      line: '# $InputTCPServerRun 514'
-      create: yes
+    dest: /etc/rsyslog.conf
+    regexp: '^\$InputTCPServerRun 514'
+    line: '# $InputTCPServerRun 514'
+    create: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog is defined
@@ -376,16 +376,16 @@
     - centos7cis_rsyslog
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.5
+    - level1
+    - patch
+    - rule_4.2.1.5
 
-- name: "NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | LOG SERVER"
+- name: 'NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | LOG SERVER'
   lineinfile:
-      dest: /etc/rsyslog.conf
-      regexp: '^\$ModLoad imtcp'
-      line: '$ModLoad imtcp'
-      create: yes
+    dest: /etc/rsyslog.conf
+    regexp: '^\$ModLoad imtcp'
+    line: '$ModLoad imtcp'
+    create: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_log_server is defined
@@ -393,16 +393,16 @@
     - centos7cis_log_server
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.5
+    - level1
+    - patch
+    - rule_4.2.1.5
 
-- name: "NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | LOG SERVER"
+- name: 'NOTSCORED | 4.2.1.5 | PATCH | Ensure remote rsyslog messages are only accepted on designated log hosts. | LOG SERVER'
   lineinfile:
-      dest: /etc/rsyslog.conf
-      regexp: '^\$InputTCPServerRun 514'
-      line: '$InputTCPServerRun 514'
-      create: yes
+    dest: /etc/rsyslog.conf
+    regexp: '^\$InputTCPServerRun 514'
+    line: '$InputTCPServerRun 514'
+    create: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_log_server is defined
@@ -410,11 +410,11 @@
     - centos7cis_log_server
     - rsyslog_installed is defined and rsyslog_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.1.5
+    - level1
+    - patch
+    - rule_4.2.1.5
 
-- name: "SCORED | 4.2.2.1 | PATCH | Ensure syslog-ng service is enabled"
+- name: 'SCORED | 4.2.2.1 | PATCH | Ensure syslog-ng service is enabled'
   systemd:
     name: syslog-ng
     enabled: yes
@@ -423,11 +423,11 @@
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
     - syslog_ng_installed is defined and syslog_ng_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.2.1
+    - level1
+    - patch
+    - rule_4.2.2.1
 
-- name: "NOTSCORED | 4.2.2.2 | PATCH | Ensure logging is configured"
+- name: 'NOTSCORED | 4.2.2.2 | PATCH | Ensure logging is configured'
   command: /bin/true
   changed_when: no
   when:
@@ -436,11 +436,11 @@
     - centos7cis_rsyslog
     - centos7cis_log_server
   tags:
-      - level1
-      - patch
-      - rule_4.2.2.2
+    - level1
+    - patch
+    - rule_4.2.2.2
 
-- name: "SCORED | 4.2.2.3 | PATCH | Ensure syslog-ng default file permissions configured"
+- name: 'SCORED | 4.2.2.3 | PATCH | Ensure syslog-ng default file permissions configured'
   lineinfile:
     dest: '/etc/syslog-ng/syslog-ng.conf'
     regexp: '^perm(0640);'
@@ -453,11 +453,11 @@
     - centos7cis_log_server
     - syslog_ng_installed is defined and syslog_ng_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.2.3
+    - level1
+    - patch
+    - rule_4.2.2.3
 
-- name: "NOTSCORED | 4.2.2.4 | PATCH | Ensure syslog-ng is configured to send logs to a remote log host"
+- name: 'NOTSCORED | 4.2.2.4 | PATCH | Ensure syslog-ng is configured to send logs to a remote log host'
   command: /bin/true
   changed_when: no
   when:
@@ -467,11 +467,11 @@
     - centos7cis_log_server
     - syslog_ng_installed is defined and syslog_ng_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.2.4
+    - level1
+    - patch
+    - rule_4.2.2.4
 
-- name: "NOTSCORED | 4.2.2.5 | PATCH | Ensure remote syslog-ng messages are only accepted on designated log hosts"
+- name: 'NOTSCORED | 4.2.2.5 | PATCH | Ensure remote syslog-ng messages are only accepted on designated log hosts'
   command: /bin/true
   changed_when: no
   when:
@@ -481,11 +481,11 @@
     - centos7cis_log_server
     - syslog_ng_installed is defined and syslog_ng_installed
   tags:
-      - level1
-      - patch
-      - rule_4.2.2.5
+    - level1
+    - patch
+    - rule_4.2.2.5
 
-- name: "SCORED | 4.2.3 | PATCH | Ensure rsyslog or syslog-ng is installed"
+- name: 'SCORED | 4.2.3 | PATCH | Ensure rsyslog or syslog-ng is installed'
   yum:
     name: rsyslog
     state: present
@@ -493,12 +493,12 @@
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
   tags:
-      - level1
-      - low
-      - patch
-      - rule_4.2.3
+    - level1
+    - low
+    - patch
+    - rule_4.2.3
 
-- name: "SCORED | 4.2.3 | PATCH | Ensure rsyslog or syslog-ng is installed"
+- name: 'SCORED | 4.2.3 | PATCH | Ensure rsyslog or syslog-ng is installed'
   yum:
     name: syslog-ng
     state: present
@@ -506,29 +506,29 @@
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_syslog_ng is defined and centos7cis_syslog_ng
   tags:
-      - level1
-      - low
-      - patch
-      - rule_4.2.3
+    - level1
+    - low
+    - patch
+    - rule_4.2.3
 
-- name: "SCORED | 4.2.4 | PATCH | Ensure permissions on all logfiles are configured"
+- name: 'SCORED | 4.2.4 | PATCH | Ensure permissions on all logfiles are configured'
   command: find /var/log -type f -exec chmod g-wx,o-rwx {} +
   when:
     - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - patch
-      - rule_4.2.4
+    - level1
+    - patch
+    - rule_4.2.4
 
-- name: "NOTSCORED | 4.3 | PATCH | Ensure logrotate is configured"
+- name: 'NOTSCORED | 4.3 | PATCH | Ensure logrotate is configured'
   lineinfile:
-      dest: /etc/logrotate.conf
-      regexp: "^#daily"
-      line: "daily"
-      create: yes
+    dest: /etc/logrotate.conf
+    regexp: '^#daily'
+    line: 'daily'
+    create: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - patch
-      - rule_4.3
+    - level1
+    - patch
+    - rule_4.3
