@@ -293,7 +293,7 @@
 
 - name: 'SCORED | 4.2.1.1 | PATCH | Ensure rsyslog Service is enabled'
   systemd:
-    name: rsyslogd
+    name: rsyslog
     enabled: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
